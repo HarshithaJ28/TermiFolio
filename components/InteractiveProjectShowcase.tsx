@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Code, ExternalLink, Github, Star } from 'lucide-react';
+import { 
+  ExternalLink, 
+  Github, 
+  Star, 
+  GitBranch, 
+  Activity,
+  Code,
+  Terminal,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause
+} from 'lucide-react';
 
 interface Project {
   name: string;
   description: string;
   techStack: string[];
   github: string;
-  demo?: string;
-  image?: string;
   stats?: {
-    stars?: number;
-    forks?: number;
-    commits?: number;
+    stars: number;
+    forks: number;
+    commits: number;
   };
 }
 
@@ -21,270 +31,279 @@ interface InteractiveProjectShowcaseProps {
 }
 
 const InteractiveProjectShowcase: React.FC<InteractiveProjectShowcaseProps> = ({ projects }) => {
-  const [selectedProject, setSelectedProject] = useState<number>(0);
+  const [currentProject, setCurrentProject] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [currentCode, setCurrentCode] = useState('');
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
 
-  const codeExamples: { [key: string]: string } = {
-    'GrubSync': `
-// Real-time event processing with Kafka
-const processEventStream = async () => {
-  const consumer = kafka.consumer({ groupId: 'grub-sync' });
-  await consumer.subscribe({ topic: 'food-events' });
-  
-  await consumer.run({
-    eachMessage: async ({ message }) => {
-      const event = JSON.parse(message.value.toString());
-      await analyzeAndRecommend(event);
-    },
-  });
-};`,
-    'VIP-Metaverse': `
-// Unity C# - Real-time avatar synchronization
-public class AvatarSync : MonoBehaviourPunPV {
-    void Update() {
-        if (photonView.IsMine) {
-            // Send position data to other clients
-            photonView.RPC("UpdatePosition", 
-                RpcTarget.Others, 
-                transform.position, 
-                transform.rotation
-            );
-        }
-    }
-}`,
-    'FilePathChecker': `
-// Python AST analysis for hardcoded paths
-def analyze_file(file_path):
-    with open(file_path, 'r') as f:
-        tree = ast.parse(f.read())
-    
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Str):
-            if is_hardcoded_path(node.s):
-                yield PathIssue(node.lineno, node.s)`,
-    'RandomWalkVisualizer': `
-// 3D random walk simulation
-def random_walk_3d(steps=1000):
-    positions = [(0, 0, 0)]
-    x, y, z = 0, 0, 0
-    
-    for _ in range(steps):
-        direction = random.choice(['x+', 'x-', 'y+', 'y-', 'z+', 'z-'])
-        # Update position based on random direction
-        x, y, z = update_position(x, y, z, direction)
-        positions.append((x, y, z))
-    
-    return positions`
-  };
-
+  // Auto-advance projects
   useEffect(() => {
-    if (isAutoPlaying) {
-      const timer = setInterval(() => {
-        setSelectedProject(prev => (prev + 1) % projects.length);
-      }, 5000);
-      return () => clearInterval(timer);
-    }
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentProject((prev) => (prev + 1) % projects.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [isAutoPlaying, projects.length]);
 
+  // Show details after initial load
   useEffect(() => {
-    const project = projects[selectedProject];
-    const code = codeExamples[project.name] || '// No code example available';
-    setCurrentCode('');
-    
-    // Typewriter effect for code
-    let i = 0;
-    const typeCode = () => {
-      if (i < code.length) {
-        setCurrentCode(prev => prev + code[i]);
-        i++;
-        setTimeout(typeCode, 20);
-      }
-    };
-    
-    setTimeout(typeCode, 500);
-  }, [selectedProject, projects]);
+    const timer = setTimeout(() => setShowDetails(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const currentProject = projects[selectedProject];
+  const nextProject = () => {
+    setCurrentProject((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  const techColors = {
+    'React': 'text-blue-400 border-blue-400/30 bg-blue-400/10',
+    'Python': 'text-yellow-400 border-yellow-400/30 bg-yellow-400/10',
+    'JavaScript': 'text-yellow-400 border-yellow-400/30 bg-yellow-400/10',
+    'TypeScript': 'text-blue-400 border-blue-400/30 bg-blue-400/10',
+    'Node.js': 'text-green-400 border-green-400/30 bg-green-400/10',
+    'MongoDB': 'text-green-400 border-green-400/30 bg-green-400/10',
+    'Flask': 'text-gray-400 border-gray-400/30 bg-gray-400/10',
+    'Spark': 'text-orange-400 border-orange-400/30 bg-orange-400/10',
+    'Kafka': 'text-red-400 border-red-400/30 bg-red-400/10',
+    'Unity': 'text-purple-400 border-purple-400/30 bg-purple-400/10',
+    'C#': 'text-purple-400 border-purple-400/30 bg-purple-400/10',
+    'Dask': 'text-cyan-400 border-cyan-400/30 bg-cyan-400/10'
+  };
+
+  const getTechColor = (tech: string) => {
+    return techColors[tech as keyof typeof techColors] || 'text-gray-400 border-gray-400/30 bg-gray-400/10';
+  };
+
+  const project = projects[currentProject];
 
   return (
-    <div className="space-y-6">
-      {/* Project Navigation */}
-      <div className="flex items-center justify-between">
-        <div className="flex space-x-2">
-          {projects.map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => {
-                setSelectedProject(index);
-                setIsAutoPlaying(false);
-              }}
-              className={`px-3 py-1 rounded text-sm transition-colors ${
-                index === selectedProject 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.95 }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="w-full"
+    >
+      {/* Terminal Header */}
+      <div className="bg-gray-800 rounded-t-lg border border-green-500/30 border-b-0">
+        <div className="flex items-center justify-between px-4 py-2">
+          <div className="flex items-center space-x-2">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div className="text-xs text-gray-400 ml-4 flex items-center space-x-2">
+              <Code className="w-3 h-3" />
+              <span>Project Showcase</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="text-xs text-cyan-400">
+              {currentProject + 1} / {projects.length}
+            </div>
+            <button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="text-gray-400 hover:text-white transition-colors"
             >
-              {index + 1}
-            </motion.button>
-          ))}
+              {isAutoPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+            </button>
+          </div>
         </div>
-        
-        <motion.button
-          onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="flex items-center space-x-2 text-green-400 hover:text-green-300"
-          whileHover={{ scale: 1.05 }}
-        >
-          {isAutoPlaying ? <Pause size={16} /> : <Play size={16} />}
-          <span className="text-sm">{isAutoPlaying ? 'Pause' : 'Play'}</span>
-        </motion.button>
       </div>
 
-      {/* Project Display */}
-      <AnimatePresence mode="wait">
+      {/* Main Content */}
+      <div className="bg-gray-900/50 border border-green-500/30 border-t-0 rounded-b-lg backdrop-blur-sm overflow-hidden">
+        {/* Command Line */}
         <motion.div
-          key={selectedProject}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 0.5 }}
-          className="border border-gray-700 rounded-lg overflow-hidden bg-gray-800"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="px-4 py-3 border-b border-gray-700/50"
         >
-          {/* Project Header */}
-          <div className="p-4 border-b border-gray-700">
-            <div className="flex items-center justify-between">
-              <div>
-                <motion.h3 
-                  className="text-xl font-bold text-green-400"
-                  initial={{ y: 20 }}
-                  animate={{ y: 0 }}
-                >
-                  {currentProject.name}
-                </motion.h3>
-                <motion.p 
-                  className="text-gray-300 mt-1"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {currentProject.description}
-                </motion.p>
-              </div>
-              
-              <div className="flex space-x-2">
-                <motion.a
-                  href={currentProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Github size={16} className="text-gray-300" />
-                </motion.a>
-                {currentProject.demo && (
-                  <motion.a
-                    href={currentProject.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 bg-green-600 rounded hover:bg-green-500 transition-colors"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.9 }}
+          <div className="flex items-center space-x-2 text-sm">
+            <span className="text-green-400">harshitha@portfolio:</span>
+            <span className="text-white">cd projects/ && ls -la</span>
+          </div>
+        </motion.div>
+
+        {/* Project Display */}
+        <div className="p-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentProject}
+              initial={{ opacity: 0, x: 50, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -50, scale: 0.95 }}
+              transition={{ 
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              className="space-y-6"
+            >
+              {/* Project Header */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <motion.h3
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-2xl font-bold text-white mb-2"
                   >
-                    <ExternalLink size={16} className="text-white" />
-                  </motion.a>
+                    {project.name}
+                  </motion.h3>
+                  
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-gray-300 leading-relaxed max-w-2xl"
+                  >
+                    {project.description}
+                  </motion.p>
+                </div>
+
+                {/* Project Stats */}
+                {project.stats && showDetails && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex flex-col space-y-2 bg-black/30 rounded-lg p-3 border border-green-500/20"
+                  >
+                    <div className="flex items-center space-x-2 text-sm">
+                      <Star className="w-4 h-4 text-yellow-400" />
+                      <span className="text-gray-300">{project.stats.stars}</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <GitBranch className="w-4 h-4 text-blue-400" />
+                      <span className="text-gray-300">{project.stats.forks}</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <Activity className="w-4 h-4 text-green-400" />
+                      <span className="text-gray-300">{project.stats.commits}</span>
+                    </div>
+                  </motion.div>
                 )}
               </div>
-            </div>
 
-            {/* Tech Stack */}
-            <motion.div 
-              className="flex flex-wrap gap-2 mt-3"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              {currentProject.techStack.map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  className="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-sm"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  whileHover={{ scale: 1.1 }}
+              {/* Tech Stack */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="space-y-3"
+              >
+                <div className="flex items-center space-x-2 text-sm">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <span className="text-cyan-400">Tech Stack:</span>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech, index) => (
+                    <motion.div
+                      key={tech}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5 + index * 0.1 }}
+                      onMouseEnter={() => setHoveredTech(tech)}
+                      onMouseLeave={() => setHoveredTech(null)}
+                      className={`
+                        px-3 py-1 rounded-full text-xs font-medium border transition-all duration-300
+                        ${getTechColor(tech)}
+                        ${hoveredTech === tech ? 'scale-110 shadow-lg' : ''}
+                        cursor-pointer
+                      `}
+                    >
+                      {tech}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-center space-x-4 pt-4"
+              >
+                <motion.a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(34, 197, 94, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all duration-300"
                 >
-                  {tech}
-                </motion.span>
+                  <Github className="w-4 h-4" />
+                  <span>View Source</span>
+                </motion.a>
+
+                <motion.button
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Live Demo</span>
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex items-center justify-between mt-8 pt-6 border-t border-gray-700/50"
+          >
+            <button
+              onClick={prevProject}
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors group"
+            >
+              <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <span>Previous</span>
+            </button>
+
+            {/* Project Indicators */}
+            <div className="flex space-x-2">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProject(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentProject 
+                      ? 'bg-green-400 scale-125' 
+                      : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                />
               ))}
-            </motion.div>
-          </div>
-
-          {/* Code Preview */}
-          <div className="p-4">
-            <div className="flex items-center space-x-2 mb-3">
-              <Code size={16} className="text-green-400" />
-              <span className="text-sm text-green-400">Code Preview</span>
             </div>
-            <motion.div
-              className="bg-black rounded p-4 font-mono text-sm overflow-x-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <pre className="text-green-300">
-                <code>{currentCode}</code>
-                <motion.span
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="text-green-400"
-                >
-                  ▋
-                </motion.span>
-              </pre>
-            </motion.div>
-          </div>
 
-          {/* Project Stats */}
-          {currentProject.stats && (
-            <motion.div 
-              className="p-4 border-t border-gray-700 flex space-x-6"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
+            <button
+              onClick={nextProject}
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors group"
             >
-              {currentProject.stats.stars && (
-                <div className="flex items-center space-x-1 text-yellow-400">
-                  <Star size={16} />
-                  <span>{currentProject.stats.stars}</span>
-                </div>
-              )}
-              {currentProject.stats.forks && (
-                <div className="text-gray-400">
-                  <span className="font-mono">{currentProject.stats.forks} forks</span>
-                </div>
-              )}
-              {currentProject.stats.commits && (
-                <div className="text-gray-400">
-                  <span className="font-mono">{currentProject.stats.commits} commits</span>
-                </div>
-              )}
-            </motion.div>
-          )}
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Progress Bar */}
-      <div className="w-full bg-gray-800 rounded-full h-1">
-        <motion.div
-          className="bg-green-400 h-1 rounded-full"
-          initial={{ width: "0%" }}
-          animate={{ width: `${((selectedProject + 1) / projects.length) * 100}%` }}
-          transition={{ duration: 0.5 }}
-        />
+              <span>Next</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

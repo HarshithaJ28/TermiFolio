@@ -1,6 +1,6 @@
 
 export const USER_DATA = {
-  name: "Harshitha J.",
+  name: "Harshitha Jonnagaddala",
   role: "Full-stack Developer | AI/ML Enthusiast | Mentor",
   introSkills: "C++, Python, React, Node, MongoDB, Big Data",
   education: "NYU Tandon School of Engineering",
