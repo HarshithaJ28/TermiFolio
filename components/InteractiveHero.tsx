@@ -7,6 +7,7 @@ import Typewriter from './Typewriter';
 import TerminalPhoto from './TerminalPhoto';
 import TerminalSocialLinks from './TerminalSocialLinks';
 import PortfolioDirectory from './PortfolioDirectory';
+import EducationExperience from './EducationExperience';
 
 interface InteractiveHeroProps {
   onModeSwitch: (mode: 'portfolio' | 'interactive') => void;
@@ -230,6 +231,16 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
         className="mt-12"
       >
         <PortfolioDirectory onSectionClick={(section) => console.log(`Navigate to: ${section}`)} />
+      </motion.div>
+
+      {/* Education & Experience Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 5 }}
+        className="mt-8"
+      >
+        <EducationExperience />
       </motion.div>
 
       {/* Skills and Social Links Section - Bottom */}

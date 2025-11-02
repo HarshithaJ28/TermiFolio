@@ -11,6 +11,9 @@ import DownloadableResume from './components/DownloadableResume';
 import PerformanceOptimizer from './components/PerformanceOptimizer';
 import LazyComponent from './components/LazyComponent';
 import InteractiveHero from './components/InteractiveHero';
+import ProjectCards from './components/ProjectCards';
+import EducationExperience from './components/EducationExperience';
+import AchievementsShowcase from './components/AchievementsShowcase';
 import { USER_DATA } from './constants';
 
 const App: React.FC = () => {
@@ -89,6 +92,11 @@ const App: React.FC = () => {
                   transition={{ duration: 0.5 }}
                   className="space-y-12"
                 >
+                  {/* Featured Project Cards */}
+                  <LazyComponent fallback={<div className="h-64 bg-gray-800/20 rounded-lg animate-pulse" />}>
+                    <ProjectCards />
+                  </LazyComponent>
+
                   {/* Project Showcase */}
                   <LazyComponent fallback={<div className="h-64 bg-gray-800/20 rounded-lg animate-pulse" />}>
                     <InteractiveProjectShowcase projects={enhancedProjects} />
@@ -97,6 +105,11 @@ const App: React.FC = () => {
                   {/* Skills Showcase */}
                   <LazyComponent fallback={<div className="h-48 bg-gray-800/20 rounded-lg animate-pulse" />}>
                     <InteractiveSkillsShowcase />
+                  </LazyComponent>
+
+                  {/* Achievements & Activities */}
+                  <LazyComponent fallback={<div className="h-48 bg-gray-800/20 rounded-lg animate-pulse" />}>
+                    <AchievementsShowcase />
                   </LazyComponent>
 
                   {/* Resume Download */}
