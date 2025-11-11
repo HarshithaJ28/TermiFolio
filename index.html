@@ -16,6 +16,12 @@
         font-family: 'Fira Code', monospace;
         background-color: #0d1117;
       }
+
+      /* Hide default cursor for custom orbital cursor */
+      * {
+        cursor: none !important;
+      }
+
       .text-glow {
         text-shadow: 0 0 5px currentColor;
       }
@@ -39,10 +45,11 @@
 
       /* Blinking cursor animation */
       @keyframes blink {
-        50% { opacity: 0; }
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
       }
       .cursor-blink {
-        animation: blink 1s step-end infinite;
+        animation: blink 1.2s ease-in-out infinite;
       }
     </style>
   <script type="importmap">

@@ -12,26 +12,62 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <filter id="pixelGlow">
+      <feGaussianBlur stdDeviation="1" result="softGlow"/>
+      <feMerge>
+        <feMergeNode in="softGlow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
   
-  <!-- Background circle -->
-  <circle cx="32" cy="32" r="30" fill="#0d1117" stroke="url(#grad1)" stroke-width="2"/>
+  <!-- Main Terminal Square Container -->
+  <rect x="6" y="6" width="52" height="52" rx="4" ry="4" fill="#0d1117" 
+        stroke="url(#grad1)" stroke-width="2"/>
   
-  <!-- Terminal-style border -->
-  <circle cx="32" cy="32" r="26" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.3"/>
+  <!-- Terminal Header Bar -->
+  <rect x="6" y="6" width="52" height="8" rx="4" ry="4" fill="url(#grad1)" opacity="0.8"/>
+  <rect x="6" y="12" width="52" height="2" fill="#0d1117"/>
   
-  <!-- H Letter -->
+  <!-- Terminal Window Controls -->
+  <circle cx="13" cy="10" r="1.5" fill="#ff5f56"/>
+  <circle cx="18" cy="10" r="1.5" fill="#ffbd2e"/>
+  <circle cx="23" cy="10" r="1.5" fill="#27ca3f"/>
+  
+  <!-- Inner Terminal Border -->
+  <rect x="8" y="16" width="48" height="40" rx="2" ry="2" fill="none" 
+        stroke="url(#grad1)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- H Letter with Terminal Style -->
   <g filter="url(#glow)" fill="url(#grad1)">
     <!-- Left vertical line -->
-    <rect x="18" y="16" width="4" height="32" rx="1"/>
+    <rect x="20" y="22" width="3" height="24" rx="1"/>
     <!-- Right vertical line -->
-    <rect x="42" y="16" width="4" height="32" rx="1"/>
+    <rect x="41" y="22" width="3" height="24" rx="1"/>
     <!-- Horizontal crossbar -->
-    <rect x="18" y="28" width="28" height="4" rx="1"/>
+    <rect x="20" y="32" width="24" height="3" rx="1"/>
   </g>
   
-  <!-- Terminal cursor dot -->
-  <circle cx="52" cy="52" r="2" fill="#00ff88" opacity="0.8">
-    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
-  </circle>
+  <!-- Terminal Grid Pattern -->
+  <g opacity="0.15" stroke="url(#grad1)" stroke-width="0.5" fill="none">
+    <line x1="8" y1="20" x2="56" y2="20"/>
+    <line x1="8" y1="24" x2="56" y2="24"/>
+    <line x1="8" y1="28" x2="56" y2="28"/>
+    <line x1="8" y1="36" x2="56" y2="36"/>
+    <line x1="8" y1="40" x2="56" y2="40"/>
+    <line x1="8" y1="44" x2="56" y2="44"/>
+    <line x1="8" y1="48" x2="56" y2="48"/>
+    <line x1="8" y1="52" x2="56" y2="52"/>
+  </g>
+  
+  <!-- Terminal Cursor -->
+  <rect x="46" y="48" width="6" height="2" fill="#00ff88" opacity="0.9" filter="url(#pixelGlow)">
+    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Corner Accent Pixels -->
+  <rect x="8" y="18" width="2" height="2" fill="#00ff88" opacity="0.6"/>
+  <rect x="54" y="18" width="2" height="2" fill="#00ccff" opacity="0.6"/>
+  <rect x="8" y="54" width="2" height="2" fill="#0088ff" opacity="0.6"/>
+  <rect x="54" y="54" width="2" height="2" fill="#00ff88" opacity="0.6"/>
 </svg>

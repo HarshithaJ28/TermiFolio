@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Eye, Camera, Zap, CheckCircle, Activity, Download } from 'lucide-react';
+import { Terminal, Eye, Camera, Zap, CheckCircle, Activity, Download, Linkedin, Github, Mail } from 'lucide-react';
 
 interface TerminalPhotoProps {
   photoUrl: string;
@@ -159,39 +159,58 @@ const TerminalPhoto: React.FC<TerminalPhotoProps> = ({ photoUrl, alt, className 
               </div>
             </div>
 
-            {/* Status Messages */}
-            <div className="space-y-1 text-xs font-mono">
-              {loadingProgress > 20 && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center space-x-2 text-yellow-400"
+            {/* Social Media Links */}
+            {loadingProgress >= 100 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex items-center justify-center space-x-4 pt-2"
+              >
+                {/* LinkedIn */}
+                <motion.a
+                  href="https://www.linkedin.com/in/harshithaj28"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 bg-blue-600/20 border border-blue-500/30 rounded-lg text-blue-400 hover:bg-blue-600/30 hover:text-blue-300 transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.1,
+                    boxShadow: "0 0 15px rgba(59, 130, 246, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Eye className="w-3 h-3" />
-                  <span>Analyzing facial features...</span>
-                </motion.div>
-              )}
-              {loadingProgress > 50 && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center space-x-2 text-blue-400"
+                  <Linkedin className="w-5 h-5" />
+                </motion.a>
+
+                {/* GitHub */}
+                <motion.a
+                  href="https://github.com/HarshithaJ28"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 bg-gray-600/20 border border-gray-500/30 rounded-lg text-gray-400 hover:bg-gray-600/30 hover:text-gray-300 transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.1,
+                    boxShadow: "0 0 15px rgba(156, 163, 175, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Zap className="w-3 h-3" />
-                  <span>Processing biometric data...</span>
-                </motion.div>
-              )}
-              {loadingProgress >= 100 && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center space-x-2 text-green-400"
+                  <Github className="w-5 h-5" />
+                </motion.a>
+
+                {/* Email */}
+                <motion.a
+                  href="mailto:hj2737@nyu.edu"
+                  className="flex items-center justify-center w-10 h-10 bg-green-600/20 border border-green-500/30 rounded-lg text-green-400 hover:bg-green-600/30 hover:text-green-300 transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.1,
+                    boxShadow: "0 0 15px rgba(34, 197, 94, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <CheckCircle className="w-3 h-3" />
-                  <span>Identity verified: {alt}</span>
-                </motion.div>
-              )}
-            </div>
+                  <Mail className="w-5 h-5" />
+                </motion.a>
+              </motion.div>
+            )}
 
             {/* Resume Download Button */}
             {loadingProgress >= 100 && (

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Code, Cpu, Zap, Globe, Database } from 'lucide-react';
+import { Terminal, Code } from 'lucide-react';
 import { USER_DATA } from '../constants';
-import GlitchText from './GlitchText';
 import Typewriter from './Typewriter';
 import TerminalPhoto from './TerminalPhoto';
-import TerminalSocialLinks from './TerminalSocialLinks';
 import PortfolioDirectory from './PortfolioDirectory';
 import EducationExperience from './EducationExperience';
 
@@ -26,13 +24,7 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
     "Mentor & Open Source Contributor"
   ];
 
-  const skills = [
-    { icon: <Code className="w-5 h-5" />, name: "Full-Stack Development", level: 95 },
-    { icon: <Cpu className="w-5 h-5" />, name: "AI/ML Engineering", level: 90 },
-    { icon: <Database className="w-5 h-5" />, name: "Data Science", level: 85 },
-    { icon: <Globe className="w-5 h-5" />, name: "Cloud Architecture", level: 88 },
-    { icon: <Zap className="w-5 h-5" />, name: "Performance Optimization", level: 92 }
-  ];
+
 
   // Cycle through titles
   useEffect(() => {
@@ -104,8 +96,77 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
               transition={{ delay: 1.8 }}
               className="pl-0"
             >
-              <div className="text-4xl md:text-6xl font-bold text-white mb-2 tracking-wide">
-                {USER_DATA.name}
+              {/* Interactive Name Display */}
+              <div className="mb-3">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.0 }}
+                  className="text-sm text-green-400 font-mono mb-1"
+                >
+                  <span className="text-gray-500">&gt;</span> whoami
+                </motion.div>
+                
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* First Name with Glitch Effect */}
+                  <motion.span
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 2.2 }}
+                    whileHover={{ 
+                      textShadow: [
+                        "0 0 5px #06b6d4",
+                        "0 0 15px #06b6d4, 0 0 25px #06b6d4",
+                        "0 0 5px #06b6d4"
+                      ]
+                    }}
+                    className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 hover:from-cyan-300 hover:to-blue-300 transition-all duration-300 cursor-pointer"
+                  >
+                    Harshitha
+                  </motion.span>
+                  
+                  {/* Terminal Separator */}
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 2.4 }}
+                    className="text-2xl md:text-3xl text-green-400 font-mono"
+                  >
+                    @
+                  </motion.span>
+                  
+                  {/* Last Name with Typing Effect */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 2.6 }}
+                    className="relative"
+                  >
+                    <span className="text-3xl md:text-4xl font-bold text-white hover:text-purple-300 transition-colors duration-300 cursor-pointer">
+                      Jonnagaddala
+                    </span>
+                    <motion.span
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 3.5 }}
+                      className="text-3xl md:text-4xl text-cyan-400 font-mono"
+                    >
+                      |
+                    </motion.span>
+                  </motion.div>
+                </div>
+                
+                {/* Professional Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 3.0 }}
+                  className="flex items-center space-x-2 mt-2"
+                >
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-gray-400 font-mono">
+                    <span className="text-green-400">status:</span> available_for_opportunities
+                  </span>
+                </motion.div>
               </div>
               <div className="text-xl md:text-2xl text-cyan-400 h-8">
                 <AnimatePresence mode="wait">
@@ -142,14 +203,65 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3 }}
-              className="text-gray-300 leading-relaxed max-w-2xl"
+              className="max-w-2xl space-y-4"
             >
-              <p className="text-base md:text-lg">
-                Passionate Full-Stack Developer and AI/ML Engineer with a Master's from NYU, 
-                specializing in scalable applications and machine learning solutions. I build 
-                robust systems using React, Python, and cloud technologies while mentoring 
-                developers and contributing to open-source projects that make tech more accessible.
-              </p>
+              {/* Main Title */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 3.2 }}
+                className="flex flex-wrap items-center gap-2"
+              >
+                <span className="text-white font-semibold text-lg">Passionate</span>
+                <span className="px-2 py-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-cyan-300 text-sm font-medium rounded-full border border-cyan-400/30">
+                  Full-Stack Developer
+                </span>
+                <span className="text-gray-300">&</span>
+                <span className="px-2 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 text-sm font-medium rounded-full border border-purple-400/30">
+                  AI/ML Engineer
+                </span>
+              </motion.div>
+
+              {/* Education & Specialization */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3.4 }}
+                className="flex items-center space-x-2 text-gray-300"
+              >
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm">
+                  <span className="text-white font-medium">Master's from NYU</span> • 
+                  Specializing in <span className="text-cyan-400">scalable applications</span> and 
+                  <span className="text-purple-400"> machine learning solutions</span>
+                </span>
+              </motion.div>
+
+              {/* Tech Stack */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3.6 }}
+                className="flex flex-wrap items-center gap-2"
+              >
+                <span className="text-gray-400 text-sm">Building with:</span>
+                <div className="flex gap-1.5">
+                  <span className="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded border border-blue-500/20">React</span>
+                  <span className="px-2 py-0.5 bg-yellow-500/10 text-yellow-400 text-xs rounded border border-yellow-500/20">Python</span>
+                  <span className="px-2 py-0.5 bg-green-500/10 text-green-400 text-xs rounded border border-green-500/20">Cloud Tech</span>
+                </div>
+              </motion.div>
+
+              {/* Mission */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3.8 }}
+                className="text-gray-300 text-sm leading-relaxed pl-4 border-l-2 border-cyan-400/30"
+              >
+                Mentoring developers and contributing to open-source projects that 
+                <span className="text-cyan-400 font-medium"> make tech more accessible</span>.
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -179,7 +291,7 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
           >
             <motion.button
               onClick={() => onModeSwitch('portfolio')}
-              className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${
+              className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 cursor-pointer ${
                 currentMode === 'portfolio' 
                   ? 'bg-green-600 text-white shadow-lg shadow-green-600/30' 
                   : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 border border-gray-600'
@@ -193,7 +305,7 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
             
             <motion.button
               onClick={() => onModeSwitch('interactive')}
-              className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${
+              className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 cursor-pointer ${
                 currentMode === 'interactive' 
                   ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-600/30' 
                   : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 border border-gray-600'
@@ -243,54 +355,7 @@ const InteractiveHero: React.FC<InteractiveHeroProps> = ({ onModeSwitch, current
         <EducationExperience />
       </motion.div>
 
-      {/* Skills and Social Links Section - Bottom */}
-      <AnimatePresence>
-        {showDetails && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ delay: 6 }}
-            className="grid lg:grid-cols-2 gap-6 mt-8"
-          >
-            {/* Skills Preview */}
-            <div className="bg-gray-900/30 border border-green-500/20 rounded-lg p-4 backdrop-blur-sm">
-              <div className="text-sm text-green-400 mb-3 flex items-center space-x-2">
-                <Cpu className="w-4 h-4" />
-                <span>SYSTEM CAPABILITIES</span>
-              </div>
-              <div className="space-y-3">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 6.5 + index * 0.1 }}
-                    className="flex items-center space-x-3"
-                  >
-                    <div className="text-cyan-400">{skill.icon}</div>
-                    <div className="flex-1">
-                      <div className="text-xs text-gray-300">{skill.name}</div>
-                      <div className="w-full bg-gray-700 rounded-full h-1 mt-1">
-                        <motion.div
-                          className="bg-green-400 h-1 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${skill.level}%` }}
-                          transition={{ delay: 7 + index * 0.1, duration: 1 }}
-                        />
-                      </div>
-                    </div>
-                    <div className="text-xs text-green-400 font-mono">{skill.level}%</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
 
-            {/* Social Links */}
-            <TerminalSocialLinks />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
