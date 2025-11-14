@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Star, GitFork, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProjectCard {
   id: number;
@@ -23,104 +23,87 @@ const ProjectCards: React.FC = () => {
   const projects: ProjectCard[] = [
     {
       id: 1,
-      title: "AI Code Assistant",
-      description: "Intelligent code completion and debugging tool using GPT-4 and machine learning algorithms.",
-      technologies: ["Python", "TensorFlow", "React", "FastAPI"],
-      githubUrl: "https://github.com/HarshithaJ28/ai-code-assistant",
-      liveUrl: "https://ai-code-assistant.demo.com",
+      title: "DepPy",
+      description: "A deterministic Python dependency resolver and conflict detector that parses requirements files, builds transitive dependency graphs, detects version conflicts, and suggests deterministic fixes using heuristics and MILP optimization.",
+      technologies: ["Python", "OR-Tools", "MILP", "Graph Theory"],
+      githubUrl: "https://github.com/HarshithaJ28/DepPy",
       stars: 127,
       forks: 34,
       status: "completed",
-      category: "AI/ML",
+      category: "DevTools",
       image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 2,
-      title: "Real-time Chat Platform",
-      description: "Scalable messaging platform with WebSocket support, file sharing, and end-to-end encryption.",
-      technologies: ["Node.js", "Socket.io", "MongoDB", "Vue.js"],
-      githubUrl: "https://github.com/HarshithaJ28/realtime-chat",
-      liveUrl: "https://chat-platform.demo.com",
+      title: "FormGenie",
+      description: "An intelligent form generator that converts documents like PDF, DOCX, and TXT into professional survey forms using AI technology, with automated Google Forms creation and seamless integration capabilities.",
+      technologies: ["Python", "AI/ML", "Google Forms API", "Document Processing"],
+      githubUrl: "https://github.com/HarshithaJ28/FormGenie",
       stars: 89,
       forks: 23,
       status: "completed",
-      category: "Full-Stack",
+      category: "AI/ML",
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 3,
-      title: "Smart Home Dashboard",
-      description: "IoT dashboard for monitoring and controlling smart home devices with predictive analytics.",
-      technologies: ["React Native", "Firebase", "Arduino", "Python"],
-      githubUrl: "https://github.com/HarshithaJ28/smart-home-dashboard",
+      title: "GrubSync",
+      description: "An intelligent, group-centric restaurant recommender system that helps friends find the best dining compromise when choosing where to eat, using advanced algorithms and collaborative filtering techniques for optimal group satisfaction.",
+      technologies: ["Python", "Machine Learning", "Collaborative Filtering", "React"],
+      githubUrl: "https://github.com/HarshithaJ28/GrubSync",
       stars: 156,
       forks: 42,
-      status: "in-progress",
-      category: "IoT",
+      status: "completed",
+      category: "AI/ML",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 4,
-      title: "Blockchain Voting System",
-      description: "Secure and transparent voting system built on Ethereum with smart contracts and Web3 integration.",
-      technologies: ["Solidity", "Web3.js", "React", "Truffle"],
-      githubUrl: "https://github.com/HarshithaJ28/blockchain-voting",
-      liveUrl: "https://blockchain-vote.demo.com",
-      stars: 203,
-      forks: 67,
+      title: "T&C Guard",
+      description: "A privacy-first browser extension that instantly analyzes Terms & Conditions and Privacy Policies, providing plain-language summaries, comprehensive risk detection, and actionable insights for informed user decisions.",
+      technologies: ["JavaScript", "Browser Extension", "NLP", "Privacy"],
+      githubUrl: "https://github.com/HarshithaJ28/Terms-and-Conditions-Guard",
+      stars: 156,
+      forks: 42,
       status: "completed",
-      category: "Blockchain",
-      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=250&fit=crop&auto=format"
+      category: "Privacy",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 5,
-      title: "E-commerce Analytics Platform",
-      description: "Advanced analytics dashboard for e-commerce businesses with real-time sales tracking and customer insights.",
-      technologies: ["React", "D3.js", "Node.js", "PostgreSQL"],
-      githubUrl: "https://github.com/HarshithaJ28/ecommerce-analytics",
-      liveUrl: "https://analytics-platform.demo.com",
-      stars: 94,
-      forks: 28,
+      title: "MineMind",
+      description: "A prototype AI-driven geospatial tool for visualizing predicted mine-related hazard risks across terrain and planning safer traversal routes that account for both predicted risk levels and model uncertainty for enhanced safety.",
+      technologies: ["Python", "AI/ML", "Geospatial Analysis", "Risk Modeling"],
+      githubUrl: "https://github.com/HarshithaJ28/MineMind",
+      stars: 203,
+      forks: 67,
       status: "completed",
-      category: "Analytics",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop&auto=format"
+      category: "AI/ML",
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 6,
-      title: "Social Media Scheduler",
-      description: "Multi-platform social media management tool with AI-powered content suggestions and scheduling.",
-      technologies: ["Vue.js", "Express.js", "Redis", "AWS"],
-      githubUrl: "https://github.com/HarshithaJ28/social-scheduler",
-      stars: 112,
-      forks: 35,
-      status: "in-progress",
-      category: "SaaS",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=250&fit=crop&auto=format"
+      title: "WelcomeHome",
+      description: "A comprehensive database-driven management system designed to efficiently track and organize donations, inventory, client orders, volunteer coordination, and delivery logistics for the non-profit organization WelcomeHome's operational excellence.",
+      technologies: ["Database Design", "SQL", "Management System", "Non-profit"],
+      githubUrl: "https://github.com/HarshithaJ28/Welcome-Home",
+      stars: 203,
+      forks: 67,
+      status: "completed",
+      category: "Database",
+      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=250&fit=crop&auto=format"
     },
     {
       id: 7,
-      title: "Fitness Tracking App",
-      description: "Mobile fitness application with workout tracking, nutrition monitoring, and progress analytics.",
-      technologies: ["React Native", "GraphQL", "MongoDB", "TensorFlow"],
-      githubUrl: "https://github.com/HarshithaJ28/fitness-tracker",
-      liveUrl: "https://fitness-app.demo.com",
-      stars: 78,
-      forks: 21,
+      title: "TermiFolio",
+      description: "A sleek, Linux terminal-themed developer portfolio that brings your projects and profile to life through a command-line aesthetic. Fully responsive, animation-ready, and easily customizable as a reusable template for any tech enthusiast.",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      githubUrl: "https://github.com/HarshithaJ28/TermiFolio",
+      stars: 203,
+      forks: 67,
       status: "completed",
-      category: "Mobile",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop&auto=format"
-    },
-    {
-      id: 8,
-      title: "Cybersecurity Dashboard",
-      description: "Enterprise security monitoring system with threat detection and automated response capabilities.",
-      technologies: ["Angular", "Python", "Elasticsearch", "Docker"],
-      githubUrl: "https://github.com/HarshithaJ28/security-dashboard",
-      stars: 165,
-      forks: 52,
-      status: "planned",
-      category: "Security",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop&auto=format"
+      category: "Portfolio",
+      image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=400&h=250&fit=crop&auto=format"
     }
   ];
 
@@ -169,6 +152,10 @@ const ProjectCards: React.FC = () => {
         return 'text-pink-400';
       case 'Security':
         return 'text-red-400';
+      case 'DevTools':
+        return 'text-violet-400';
+      case 'Privacy':
+        return 'text-teal-400';
       default:
         return 'text-cyan-400';
     }
@@ -267,7 +254,7 @@ const ProjectCards: React.FC = () => {
             </h3>
 
             {/* Description */}
-            <p className="text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+            <p className="text-gray-300 text-sm mb-4 leading-relaxed text-justify">
               {project.description}
             </p>
 
@@ -285,22 +272,6 @@ const ProjectCards: React.FC = () => {
                 <span className="px-2 py-1 bg-gray-800/50 text-gray-400 text-xs rounded border border-gray-600/20">
                   +{project.technologies.length - 3}
                 </span>
-              )}
-            </div>
-
-            {/* Stats */}
-            <div className="flex items-center justify-between mb-4 text-xs text-gray-400">
-              {project.stars && (
-                <div className="flex items-center space-x-1">
-                  <Star className="w-3 h-3" />
-                  <span>{project.stars}</span>
-                </div>
-              )}
-              {project.forks && (
-                <div className="flex items-center space-x-1">
-                  <GitFork className="w-3 h-3" />
-                  <span>{project.forks}</span>
-                </div>
               )}
             </div>
 

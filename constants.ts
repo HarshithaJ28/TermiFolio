@@ -21,28 +21,46 @@ export const USER_DATA = {
 
   projects: [
     {
+      name: "DepPy",
+      description: "A deterministic Python dependency resolver and conflict detector that parses requirements files, builds transitive dependency graphs, detects version conflicts, and suggests deterministic fixes using heuristics and MILP optimization.",
+      techStack: ["Python", "OR-Tools", "MILP", "Graph Theory"],
+      github: "https://github.com/HarshithaJ28/DepPy"
+    },
+    {
+      name: "FormGenie",
+      description: "An intelligent form generator that converts documents like PDF, DOCX, and TXT into professional survey forms using AI technology, with automated Google Forms creation and seamless integration capabilities.",
+      techStack: ["Python", "AI/ML", "Google Forms API", "Document Processing"],
+      github: "https://github.com/HarshithaJ28/FormGenie"
+    },
+    {
       name: "GrubSync",
-      description: "A group-based recommender system for NYC food events. Features real-time data ingestion and analytics using Kafka, Spark, and MongoDB.",
-      techStack: ["React", "Flask", "Dask", "MongoDB", "Spark NLP", "Kafka"],
-      github: "https://github.com/harshithajay/GrubSync"
+      description: "An intelligent, group-centric restaurant recommender system that helps friends find the best dining compromise when choosing where to eat, using advanced algorithms and collaborative filtering techniques for optimal group satisfaction.",
+      techStack: ["Python", "Machine Learning", "Collaborative Filtering", "React"],
+      github: "https://github.com/HarshithaJ28/GrubSync"
     },
     {
-      name: "VIP-Metaverse",
-      description: "A virtual immersive presence platform for metaverse interactions. Developed with a focus on low-latency streaming and real-time 3D rendering.",
-      techStack: ["Unity", "C#", "Photon Engine", "Blender"],
-      github: "https://github.com/harshithajay/VIP-Metaverse"
+      name: "T&C Guard",
+      description: "A privacy-first browser extension that instantly analyzes Terms & Conditions and Privacy Policies, providing plain-language summaries, comprehensive risk detection, and actionable insights for informed user decisions.",
+      techStack: ["JavaScript", "Browser Extension", "NLP", "Privacy"],
+      github: "https://github.com/HarshithaJ28/Terms-and-Conditions-Guard"
     },
     {
-      name: "FilePathChecker",
-      description: "A static analysis tool to detect and report hardcoded file paths in source code, improving code portability and maintainability.",
-      techStack: ["Python", "AST", "Regular Expressions"],
-      github: "https://github.com/harshithajay/FilePathChecker"
+      name: "MineMind",
+      description: "A prototype AI-driven geospatial tool for visualizing predicted mine-related hazard risks across terrain and planning safer traversal routes that account for both predicted risk levels and model uncertainty for enhanced safety.",
+      techStack: ["Python", "AI/ML", "Geospatial Analysis", "Risk Modeling"],
+      github: "https://github.com/HarshithaJ28/MineMind"
     },
     {
-        name: "RandomWalkVisualizer",
-        description: "A Python-based tool to visualize various random walk algorithms in 2D and 3D space, aiding in the understanding of stochastic processes.",
-        techStack: ["Python", "Matplotlib", "NumPy"],
-        github: "https://github.com/harshithajay/RandomWalkVisualizer"
+      name: "WelcomeHome",
+      description: "A comprehensive database-driven management system designed to efficiently track and organize donations, inventory, client orders, volunteer coordination, and delivery logistics for the non-profit organization WelcomeHome's operational excellence.",
+      techStack: ["Database Design", "SQL", "Management System", "Non-profit"],
+      github: "https://github.com/HarshithaJ28/Welcome-Home"
+    },
+    {
+      name: "TermiFolio",
+      description: "A sleek, Linux terminal-themed developer portfolio that brings your projects and profile to life through a command-line aesthetic. Fully responsive, animation-ready, and easily customizable as a reusable template for any tech enthusiast.",
+      techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      github: "https://github.com/HarshithaJ28/TermiFolio"
     }
   ],
 
